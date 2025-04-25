@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登入 / 註冊 | 食譜坊</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/auth_style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">食譜坊</div>
+            <nav class="nav-links">
+                <a href="../index.html">首頁</a>
+                <a href="recipes.html">食譜列表</a>
+                <a href="auth.html">登入 / 註冊</a>
+            </nav>
+            <button class="nav-toggle" aria-label="開啟選單">☰</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="auth-section">
+            <h2>會員登入 / 註冊</h2>
+
+            <div class="auth-forms">
+                <form id="login-form">
+                    <h3>登入</h3>
+                    <input type="email" id="login-email" placeholder="電子信箱" required />
+                    <input type="password" id="login-password" placeholder="密碼" required />
+                    <button class="btn-primary" type="submit">登入</button>
+                </form>
+
+                <form id="signup-form">
+                    <h3>註冊</h3>
+                    <input type="text" id="signup-name" placeholder="顯示名稱" required />
+                    <input type="email" id="signup-email" placeholder="電子信箱" required />
+                    <input type="password" id="signup-password" placeholder="密碼" required />
+                    <button class="btn-primary" type="submit">註冊</button>
+                </form>
+            </div>
+
+            <div class="third-party-login">
+                <p>或使用第三方登入：</p>
+                <button class="btn-secondary" id="google-login">使用 Google 登入</button>
+                <button class="btn-secondary" id="github-login">使用 GitHub 登入</button>
+            </div>
+
+            <div class="auth-actions">
+                <a href="#" id="reset-password">忘記密碼？</a>
+                <a href="#" id="verify-email">重新發送驗證信</a>
+                <a href="#" id="delete-account">刪除帳號</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 食譜坊 (RecipeHub)。版權所有。</p>
+        </div>
+    </footer>
+
+    <script src="../script/auth_script.js" type="module"></script>
+</body>
+
+</html>
