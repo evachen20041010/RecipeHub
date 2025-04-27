@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新增食譜 - 食譜坊 RecipeHub</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/recipes_style.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">食譜坊</div>
+            <nav class="nav-links">
+                <a href="../index.html">首頁</a>
+                <a href="recipes.html">食譜列表</a>
+                <a href="auth.html" id="auth-link">登入 / 註冊</a>
+                <a href="profile.html" id="profile-link" style="display: none;">個人檔案</a>
+            </nav>
+            <div id="user-info" style="display: none;">
+                歡迎，<span id="username">使用者</span>！
+                <button id="logout-btn">登出</button>
+            </div>
+            <button class="nav-toggle" aria-label="開啟選單">☰</button>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <section class="container recipe-form-container">
+            <h1>新增食譜</h1>
+            <input type="text" id="recipe-title" placeholder="食譜標題" />
+            <textarea id="recipe-ingredients" placeholder="材料清單（每行一項）"></textarea>
+            <textarea id="recipe-steps" placeholder="步驟（支援 Markdown 格式）"></textarea>
+
+            <!-- 圖片上傳提示 -->
+            <div class="image-upload-disabled">
+                ⚠️ 因為 Cloud Storage for Firebase 定價方案規定有異動，目前無法提供上傳圖片功能，未來會慢慢新增。
+            </div>
+
+            <button id="submit-recipe-btn">提交食譜</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+          <div class="footer-columns">
+            <div class="footer-about">
+              <h4>關於食譜坊</h4>
+              <p>食譜坊是一個分享美味與靈感的平台，致力於打造最實用的烹飪交流社群。</p>
+            </div>
+            <div class="footer-links">
+              <h4>快速連結</h4>
+              <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="pages/recipes.html">食譜列表</a></li>
+                <li><a href="pages/add_recipe.html">新增食譜</a></li>
+              </ul>
+            </div>
+            <div class="footer-contact">
+              <h4>聯絡我們</h4>
+              <p>Email: 5a9g0006@stust.edu.tw</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    <script type="module" src="../script/script.js"></script>
+    <script type="module" src="../script/add_recipe_script.js"></script>
+</body>
+
+</html>

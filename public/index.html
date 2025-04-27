@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>食譜坊 (RecipeHub)</title>
   <link rel="stylesheet" href="style/style.css" />
 </head>
+
 <body>
   <header>
     <div class="container nav-container">
@@ -13,26 +15,73 @@
       <nav class="nav-links">
         <a href="index.html">首頁</a>
         <a href="pages/recipes.html">食譜列表</a>
-        <a href="pages/auth.html">登入 / 註冊</a>
+        <a href="pages/auth.html" id="auth-link">登入 / 註冊</a>
+        <a href="pages/profile.html" id="profile-link" style="display: none;">個人檔案</a>
       </nav>
+      <div id="user-info" style="display: none;">
+        歡迎，<span id="username">使用者</span>！
+        <button id="logout-btn">登出</button>
+      </div>
       <button class="nav-toggle" aria-label="開啟選單">☰</button>
     </div>
   </header>
 
+
   <main>
+    <!-- Hero 區塊 -->
     <section class="hero container">
-      <h1>探索天下美味食譜</h1>
-      <p>立即加入，收藏你的最愛，分享你的廚藝。</p>
-      <a class="btn-primary" href="recipes.html">開始探索</a>
+      <h1>發掘全球美味食譜，分享你的廚藝故事</h1>
+      <p>加入 RecipeHub🍽️，收藏❤️、創作📖、交流🧑‍🍳，打造你的專屬料理宇宙✨。</p>
+      <div class="index_btn">
+        <div class="index_btn row">
+          <a class="btn-primary" href="pages/recipes.html">立即開始</a>
+          <a class="btn-secondary" href="pages/add_recipe.html">新增食譜</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能簡介區塊 -->
+    <section class="features container">
+      <div class="feature-card">
+        <h3>會員系統</h3>
+        <p>Email、Google、GitHub 登入，管理個人檔案與收藏。</p>
+      </div>
+      <div class="feature-card">
+        <h3>食譜管理</h3>
+        <p>新增、編輯、分享你的拿手好菜，支援 Markdown 編輯。</p>
+      </div>
+      <div class="feature-card">
+        <h3>互動社群</h3>
+        <p>留言交流，按「好吃」收藏，探索他人創意料理。</p>
+      </div>
     </section>
   </main>
 
   <footer>
     <div class="container footer-content">
-      <p>© 2025 食譜坊 (RecipeHub)。版權所有。</p>
+      <div class="footer-columns">
+        <div class="footer-about">
+          <h4>關於食譜坊</h4>
+          <p>食譜坊是一個分享美味與靈感的平台，致力於打造最實用的烹飪交流社群。</p>
+        </div>
+        <div class="footer-links">
+          <h4>快速連結</h4>
+          <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="pages/recipes.html">食譜列表</a></li>
+            <li><a href="pages/add_recipe.html">新增食譜</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>聯絡我們</h4>
+          <p>Email: 5a9g0006@stust.edu.tw</p>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="script/script.js"></script>
+
+  <script type="module" src="script/script.js"></script>
 </body>
+
 </html>

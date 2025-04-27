@@ -1,27 +1,64 @@
-const navToggle = document.querySelector('.nav-toggle');
-const body = document.body;
-navToggle.addEventListener('click', () => {
-  body.classList.toggle('nav-open');
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABrQw6GQegeUAc1KeFbN2dyIjfnpDHax4",
+  authDomain: "recipehub-f0e58.firebaseapp.com",
+  projectId: "recipehub-f0e58",
+  storageBucket: "recipehub-f0e58.appspot.com",
+  messagingSenderId: "704003148200",
+  appId: "1:704003148200:web:82607f79411f493277759d",
+  measurementId: "G-R9LGHW1J2J"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 顯示登入狀態與控制導覽列
+onAuthStateChanged(auth, (user) => {
+  const userInfo = document.getElementById("user-info");
+  const authLink = document.getElementById("auth-link");
+  const profileLink = document.getElementById("profile-link");
+
+  if (user) {
+    const name = user.displayName || user.email;
+    document.getElementById("username").textContent = name;
+
+    // 控制導覽列
+    userInfo.style.display = "flex";
+    authLink.style.display = "none";
+    profileLink.style.display = "inline";
+  } else {
+    // 未登入
+    userInfo.style.display = "none";
+    authLink.style.display = "inline";
+    profileLink.style.display = "none";
+  }
 });
 
-const recipeGrid = document.getElementById('recipe-grid');
-const recipes = [
-  { title: '香煎檸檬雞', author: 'Chef A', likes: 120 },
-  { title: '蜂蜜烤鮭魚', author: 'Chef B', likes: 98 },
-  { title: '泰式打拋豬', author: 'Chef C', likes: 142 },
-];
-recipes.forEach(recipe => {
-  const card = document.createElement('article');
-  card.className = 'recipe-card';
-  card.innerHTML = `
-    <img src="https://via.placeholder.com/300x200" alt="${recipe.title}" />
-    <div class="card-content">
-      <h3>${recipe.title}</h3>
-      <p class="author">By ${recipe.author}</p>
-      <div class="card-actions">
-        <button class="btn-like">❤ ${recipe.likes}</button>
-      </div>
-    </div>
-  `;
-  recipeGrid.appendChild(card);
+// 登出功能
+document.getElementById("logout-btn").addEventListener("click", () => {
+  signOut(auth).then(() => {
+    alert("已登出");
+    window.location.href = "pages/auth.html";
+  });
+});
+
+// 選單開關
+const navToggle = document.querySelector(".nav-toggle");
+const header = document.querySelector("header");
+
+navToggle.addEventListener("click", () => {
+  header.classList.toggle("nav-open");
 });

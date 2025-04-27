@@ -1,3 +1,4 @@
+/* 通用 */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +7,9 @@
 
 body {
     font-family: 'Noto Sans TC', sans-serif;
-    line-height: 1.6;
+    background: #f8fbff;
     color: #333;
+    line-height: 1.6;
 }
 
 .container {
@@ -18,7 +20,8 @@ body {
 
 /* Header */
 header {
-    background: #fff;
+    background: #9ec3e8;
+    color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -27,22 +30,56 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 0;
+    position: relative;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #fff;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    max-width: 500px;
 }
 
 .nav-links a {
-    margin-left: 1.5rem;
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0;
     text-decoration: none;
-    color: #333;
+    color: #fff;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #e67e22;
+    color: #6b839a;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+#logout-btn {
+    background: #fff;
+    color: #9ec3e8;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+#logout-btn:hover {
+    color: #fff;
+    background-color: #8aabcc;
 }
 
 .nav-toggle {
@@ -50,159 +87,187 @@ header {
     background: none;
     border: none;
     font-size: 1.5rem;
+    color: #fff;
 }
 
-/* Hero Section */
+/* Hero 區塊 */
 .hero {
     text-align: center;
-    padding: 4rem 0;
+    padding: 4rem 0 2rem;
 }
 
 .hero h1 {
     font-size: 2.5rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
+    color: #8aabcc;
 }
 
 .hero p {
-    margin-bottom: 2rem;
     font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.index_btn {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    min-width: 150px;
+    text-align: center;
 }
 
 .btn-primary {
-    background: #e67e22;
+    background: #9ec3e8;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    text-decoration: none;
 }
 
 .btn-primary:hover {
-    background: #d35400;
+    background: #8aabcc;
 }
 
-/* Recipe Grid */
-.recipes h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
+.btn-secondary {
+    background: #9ec3e8;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 1rem;
 }
 
-.recipe-grid {
+.btn-secondary:hover {
+    background: #8aabcc;
+}
+
+/* 功能區 */
+.features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    margin: 3rem auto;
+    padding: 2rem 0;
+    justify-items: center;
+    /* 置中卡片 */
+    align-items: stretch;
+    max-width: 1000px;
+    /* 限制區塊最大寬度，保持置中 */
 }
 
-.recipe-card {
+.feature-card {
     background: #fff;
+    padding: 3rem;
     border-radius: 8px;
-    overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.recipe-card:hover {
-    transform: translateY(-5px);
-}
-
-.recipe-card img {
+    text-align: center;
     width: 100%;
-    height: auto;
+    max-width: 300px;
+    /* 控制卡片最大寬度 */
 }
 
-.card-content {
-    padding: 1rem;
-}
-
-.card-content h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.author {
-    font-size: 0.875rem;
-    color: #777;
+.feature-card h3 {
+    color: #8aabcc;
     margin-bottom: 1rem;
-}
-
-.card-actions {
-    text-align: right;
-}
-
-.btn-like {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
 }
 
 /* Footer */
 footer {
-    background: #f9f9f9;
-    padding: 1.5rem 0;
-    margin-top: 4rem;
+    background: #9ec3e8;
+    color: #fff;
     text-align: center;
-    font-size: 0.875rem;
-    color: #777;
+    padding: 1rem 0;
 }
 
-/* Responsive */
+.footer-content {
+    padding: 2rem 0;
+}
+
+.footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.footer-columns>div {
+    flex: 1;
+    min-width: 200px;
+    margin: 1rem 0;
+}
+
+.footer-columns h4 {
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.footer-columns p,
+.footer-columns a,
+.footer-columns li {
+    color: #f0f0f0;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.footer-columns ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-columns ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* 手機版選單樣式 */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* 響應式 */
 @media (max-width: 768px) {
     .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        flex-direction: column;
         display: none;
+        flex-direction: column;
+        background: #9ec3e8;
+        position: absolute;
+        top: 60px;
+        /* 根據 header 高度調整 */
+        left: 0;
+        width: 100%;
+        z-index: 1000;
     }
 
     .nav-links a {
-        margin: 1rem 0;
-        text-align: center;
-    }
-
-    .nav-toggle {
-        display: block;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .nav-open .nav-links {
         display: flex;
     }
+
+    .nav-toggle {
+        display: block;
+    }
 }
 
-.editor,
-.profile {
-    margin-top: 4rem;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.editor h2,
-.profile h2 {
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-#recipe-form input,
-#recipe-form textarea,
-#profile-form input,
-#profile-form textarea {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-}
-
-#markdown-editor {
-    height: 200px;
-    font-family: monospace;
+@media (max-width: 500px) {
+    .index_btn {
+        flex-direction: column;
+    }
 }

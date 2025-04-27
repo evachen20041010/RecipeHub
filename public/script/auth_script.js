@@ -1,17 +1,21 @@
+// Firebase 設定與初始化
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    GithubAuthProvider,
-    signInWithRedirect,
-    getRedirectResult,
     sendPasswordResetEmail,
     sendEmailVerification,
-    deleteUser
+    signInWithPopup,
+    GoogleAuthProvider,
+    GithubAuthProvider
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 const firebaseConfig = {
     apiKey: "AIzaSyABrQw6GQegeUAc1KeFbN2dyIjfnpDHax4",
     authDomain: "recipehub-f0e58.firebaseapp.com",
@@ -24,97 +28,120 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
+const db = getFirestore(app);
 
-// ========== 登入結果處理 (for redirect 登入回來時) ==========
-getRedirectResult(auth)
-    .then((result) => {
-        if (result && result.user) {
-            alert("登入成功！");
-            window.location.href = "index.html";
-        }
-    })
-    .catch((err) => {
-        if (err.code !== "auth/no-auth-event") {
-            alert(`登入失敗：${err.message}`);
-        }
-    });
+// Email 註冊
+document.getElementById("register-btn").addEventListener("click", () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+            const user = userCredential.user;
 
-// ========== 註冊 ==========
-document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("signup-name").value;
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await sendEmailVerification(userCredential.user);
-        alert("註冊成功！驗證信已寄出，請至信箱確認。");
-    } catch (err) {
-        alert(`註冊失敗：${err.message}`);
-    }
+            // 寄驗證信
+            await sendEmailVerification(user);
+
+            // Firestore 初始資料寫入
+            await setDoc(doc(db, "users", user.uid), {
+                uid: user.uid,
+                email: user.email,
+                username: "",  // 初始空，讓使用者自己設定
+                bio: "",
+                favorites: [],
+                createdAt: new Date()
+            });
+
+            alert("註冊成功，請驗證您的信箱！");
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
 
-// ========== Email 登入 ==========
-document.getElementById("login-form")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("登入成功！");
-        window.location.href = "index.html";
-    } catch (err) {
-        alert(`登入失敗：${err.message}`);
-    }
+// Email 登入
+document.getElementById("login-btn").addEventListener("click", () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            if (userCredential.user.emailVerified) {
+                alert("登入成功！");
+                window.location.href = "../index.html";
+            } else {
+                alert("請先驗證您的信箱！");
+            }
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
 
-// ========== Google 登入 ==========
-document.getElementById("google-login")?.addEventListener("click", () => {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+// Google 登入 (Popup)
+document.getElementById("google-btn").addEventListener("click", () => {
+    signInWithPopup(auth, googleProvider)
+        .then(async (result) => {
+            const user = result.user;
+
+            // 檢查 Firestore 中是否已有資料
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (!userDocSnap.exists()) {
+                // 若不存在，建立初始資料
+                await setDoc(userDocRef, {
+                    uid: user.uid,
+                    email: user.email,
+                    bio: "",
+                    favorites: [],
+                    createdAt: new Date()
+                });
+            }
+
+            alert("Google 登入成功！");
+            window.location.href = "../index.html";
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
 
-// ========== GitHub 登入 ==========
-document.getElementById("github-login")?.addEventListener("click", () => {
-    const provider = new GithubAuthProvider();
-    signInWithRedirect(auth, provider);
+// GitHub 登入 (Popup)
+document.getElementById("github-btn").addEventListener("click", () => {
+    signInWithPopup(auth, githubProvider)
+        .then(async (result) => {
+            const user = result.user;
+
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (!userDocSnap.exists()) {
+                await setDoc(userDocRef, {
+                    uid: user.uid,
+                    email: user.email,
+                    bio: "",
+                    favorites: [],
+                    createdAt: new Date()
+                });
+            }
+
+            alert("GitHub 登入成功！");
+            window.location.href = "../index.html";
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });
 
-// ========== 忘記密碼 ==========
-document.getElementById("reset-password")?.addEventListener("click", async () => {
-    const email = prompt("請輸入你的註冊信箱");
-    if (email) {
-        try {
-            await sendPasswordResetEmail(auth, email);
+// 忘記密碼
+document.getElementById("reset-btn").addEventListener("click", () => {
+    const email = document.getElementById("email").value;
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
             alert("重設密碼信已寄出！");
-        } catch (err) {
-            alert(`錯誤：${err.message}`);
-        }
-    }
-});
-
-// ========== 重發驗證信 ==========
-document.getElementById("verify-email")?.addEventListener("click", async () => {
-    if (auth.currentUser) {
-        try {
-            await sendEmailVerification(auth.currentUser);
-            alert("驗證信已寄出！");
-        } catch (err) {
-            alert(`錯誤：${err.message}`);
-        }
-    } else {
-        alert("請先登入帳戶。");
-    }
-});
-
-// ========== 刪除帳號 ==========
-document.getElementById("delete-account")?.addEventListener("click", async () => {
-    if (auth.currentUser && confirm("確定要刪除帳號嗎？此操作無法復原！")) {
-        try {
-            await deleteUser(auth.currentUser);
-            alert("帳號已刪除。");
-        } catch (err) {
-            alert(`錯誤：${err.message}`);
-        }
-    }
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
 });

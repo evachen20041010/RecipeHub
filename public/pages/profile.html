@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>個人檔案 - 食譜坊 RecipeHub</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/profile_style.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">食譜坊</div>
+            <nav class="nav-links">
+                <a href="../index.html">首頁</a>
+                <a href="../pages/recipes.html">食譜列表</a>
+                <a href="../pages/auth.html" id="auth-link">登入 / 註冊</a>
+                <a href="../pages/profile.html" id="profile-link" style="display: none;">個人檔案</a>
+            </nav>
+            <div id="user-info" style="display: none;">
+                歡迎，<span id="username">使用者</span>！
+                <button id="logout-btn">登出</button>
+            </div>
+            <button class="nav-toggle" aria-label="開啟選單">☰</button>
+        </div>
+    </header>
+
+    <!-- Main 區塊 -->
+    <main>
+        <section class="container profile-container">
+            <h1>個人檔案</h1>
+
+            <div class="profile-section">
+                <h2>基本資訊</h2>
+                <p><strong>名稱：</strong><span id="display-username">載入中...</span></p>
+                <p><strong>簡介：</strong><span id="display-bio">載入中...</span></p>
+                <p><strong>信箱狀態：</strong><span id="email-status">載入中...</span></p>
+                <button id="resend-verification-btn" style="display: none;">重新寄送驗證信</button>
+                <button id="edit-profile-btn">編輯</button>
+
+                <div id="edit-section" style="display: none; margin-top: 1rem;">
+                    <input type="text" id="edit-section-username" placeholder="使用者名稱" />
+                    <textarea id="edit-section-bio" placeholder="自我介紹"></textarea>
+                    <button id="save-profile-btn">儲存資料</button>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>收藏的食譜</h2>
+                <ul id="favorites-list">
+                    <!-- 動態顯示收藏的食譜 -->
+                </ul>
+            </div>
+
+            <div class="profile-section">
+                <h2>帳戶管理</h2>
+                <button id="change-password-btn">修改密碼</button>
+                <button id="delete-account-btn" class="danger">刪除帳號</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-columns">
+                <div class="footer-about">
+                    <h4>關於食譜坊</h4>
+                    <p>食譜坊是一個分享美味與靈感的平台，致力於打造最實用的烹飪交流社群。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="pages/recipes.html">食譜列表</a></li>
+                        <li><a href="pages/add_recipe.html">新增食譜</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>聯絡我們</h4>
+                    <p>Email: 5a9g0006@stust.edu.tw</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../script/script.js"></script>
+    <script type="module" src="../script/profile_script.js"></script>
+</body>
+
+</html>
